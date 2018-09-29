@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div id="header">
-				<img src="../../assets/icons/pokeball.png" id="pokeballIcon">
+				<img src="../../../dist/assets/icons/pokeball.png" id="pokeballIcon">
 				<h1>Pok&eacute;dex</h1>
 			</div>
 			<div class="progress">
