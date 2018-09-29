@@ -4,7 +4,7 @@
 		  <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
 		  <div class="card-body">
 		    <h4 class="card-title" >{{ pokemon | capitalizeFirstLetter }}</h4>
-		    <!--<img :src="getPokemonSprites(pokemonData.id)"/>-->
+		    <img :src="getPokemonSprites()"/>
 		    <p class="card-text"><strong>Pok&eacute;dex #</strong> : {{ pokemonData.ID }} </p>
 
 		    <div  :class="invalidPokemonWarning" >
@@ -28,20 +28,12 @@
 
 
 <script>
-	/*
-	PokeApi website no longer available,
-	SO currently using a local version
 	
 	import Vue from 'vue'
 	import axios from 'axios'
 	import VueAxios from 'vue-axios'
 	
 	Vue.use(VueAxios, axios);
-	 */
-
-
-	var Pokedex = require('pokedex-promise-v2');
-	var P = new Pokedex();
 
 	export default{
 		props : {
@@ -64,8 +56,8 @@
 				},
 				isValidpokemon : false,
 				invalidPokemonWarning : {
-					alert: isValidpokemon,
-					'alert-danger': isValidpokemon
+					alert: this.isValidpokemon,
+					'alert-danger': this.isValidpokemon
 				},
 				errored : false // error
 
@@ -81,9 +73,17 @@
 			}
 		},
 
-		mounted () {
+		methods: {
 
-			/*
+			// outputs the pokemon images
+			getPokemonSprites(){
+			    if(this.pokemonData.ID != '') return '../../../dist/assets/sprites/' + this.pokemonData.ID + '.png';
+			    return '';
+			}
+		},
+
+		mounted () {
+			
 			// gets pokemon info
 			let pokemonInfo = this.pokemonData
 		    axios
@@ -110,21 +110,8 @@
 		      		pokemonInfo.attack = '?',
 		      		pokemonInfo.hp = '?'
 		      ));
-		      */
-		      P.getAbilityByName("stench")
-    .then(function(response) {
-      console.log(response);
-    })
-    .catch(function(error) {
-      console.log('There was an ERROR: ', error);
-    });	
-		},
-		methods : {
-			getPokemonSprites(pokedexNum) {
-			    var images = require.context('', true, /\.png$/)
-			    return images( './' + pokedexNum + ".png")
-  			}
-		},
+		      
+		}
 
 	};
 	
